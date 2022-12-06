@@ -37,7 +37,8 @@ def get_bid(body):
         else:
             trump_cards = [card for card in body["cards"] if card[1] in ["S","C"]]
             if len(trump_cards) > 0:
-                return{"bid" : challenger_bid_num + 1 }
+                challenger_bid_num = challenger_bid_num + 1
+                return{"bid" : challenger_bid_num }
             else:
                 return{"bid" : PASS_BID}
         

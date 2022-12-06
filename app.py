@@ -33,7 +33,7 @@ def print(args):
 @app.route("/hi", methods=["GET"])
 def hi(request: Request):
     print("Hit the endpoint. Sending hello...")
-    return json({"value": "hello"})
+    return json({"value": "notyourhello"})
 
 
 
