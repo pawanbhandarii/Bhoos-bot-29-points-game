@@ -18,6 +18,32 @@ def get_bid(body):
     if len(body["bidHistory"]) == 0:
         return {"bid" : MIN_BID}
     #if not the first player then check the previous bids to determine if we bid or pass
+    if len(body["bidHistory"]) != 0:
+        #find the defender and challenger
+        defender_id = body["bidState"]["defenderID"]
+        challenger_id = body["bidState"]["challengerID"]
+
+        #get the currnet challenger and defender bid
+        defender_bid = body["bidState"]["defenderBid"]
+        challenger_bid = body["bidState"]["challengerBid"]
+
+        #convert challanger bid and defender bid into numerical value
+        defender_bid_num = int(defender_bid)
+        challenger_bid_num = int(challenger_bid)
+        
+         # if it's not your turn to bid, just pass
+        if body["playerId"] != defender_id and body["playerId"] != challenger_id:
+            return {"bid" : PASS_BID}
+        else:
+            trump_cards = [card for card in body["cards"] if card[1] in ["S","C"]]
+            if len(trump_cards) > 0:
+                return{"bid" : challenger_bid_num + 1 }
+            else:
+                return{"bid" : PASS_BID}
+        
+
+
+
     
     return {"bid" : PASS_BID}
 
